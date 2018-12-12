@@ -11,7 +11,7 @@
 	double pi = 3.141592654;
 	double delta = 1.39/180*pi;
 
-	double Ue2[3] = {c12*c13*c12*c13,s12*c13*s12*c13,s13*s13*cos(-2*delta)};
+	double Ue2[3] = {c12*c13*c12*c13,s12*c13*s12*c13,s13*s13};
 	double Umu2[3]= {s12*c23*s12*c23 + c12*s13*s23*c12*s13*s23 + 2*c12*s13*s23*s12*c23*cos(delta), c12*c23*c12*c23 + s12*s13*s23*s12*s13*s23 + 2*s12*s13*s23*c12*c23*cos(pi-delta), c13*s23*c13*s23};
 	double Utao2[3]={s12*s23*s12*s23 + c12*s13*c23*c12*s13*c23 + 2*c12*s13*c23*s12*s23*cos(pi-delta), c12*s23*c12*s23 + s12*s13*c23*s12*s13*c23 + 2*s12*s13*c23*c12*s23*cos(delta),c13*c23*c13*c23};
 
