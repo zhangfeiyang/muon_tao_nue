@@ -51,22 +51,48 @@ double cal_m1(double m2){
 	return sqrt(m2*m2 - M21);
 }
 
-void draw(){
+void draw_NH(){
 
 	const int N = 100;
 
 	double x[N],y[N];	
 	for(int i=0;i<N;i++){
-		double sum = i*1.0/N + 0.1;
+		double sum = i*1.0/N + 0.06;
 		double m2 = cal_m2(sum);
 		double m1 = cal_m1(m2);
 		double m3 = sum - m1 - m2;
 		double me = cal_me(m1,m2,m3);
-		cout << sum << "\t" << me << "\n"; 
+		cout << sum <<"\t" << m1 << "\t" << m2 << "\t"<< m3 << "\t" << me <<"\t"<<m2**2-m1**2 << "\t" << m3**2-m1**2 << "\n";
 		x[i] = sum;
 		y[i] = me;
 	}
 	TGraph *t = new TGraph(N,x,y);
-	t->Draw();
+	
+	t->Draw("AL");
+	t->SetLineColor(kRed);
+	t->SetLineWidth(2);
+	c1->SetTickx();
+	c1->SetTicky();
 
+	c1->SetLogx();
+	c1->SetLogy();
+	t->GetXaxis()->SetRangeUser(0.001,1);
+	t->GetYaxis()->SetRangeUser(0.0001,1);
+
+	ifstream fin("NH.csv");
+	const int N0 = 30;
+	double x0[N0],y0[N0];
+	for(int i=0;i<N0;i++){
+		fin>>x0[i]>>y0[i];
+	}	
+	TGraph *t0 = new TGraph(N0,x0,y0);
+	t0->SetLineColor(kBlue);
+	t0->SetLineWidth(2);
+	t0->Draw("same");
+
+	TLegend *l = new TLegend(0.8,0.8,0.9,0.9);
+	l->AddEntry(t0,"data from Yellow book","l");
+	l->AddEntry(t,"calculated by myself","l");
+	l->Draw();
+	
 }
